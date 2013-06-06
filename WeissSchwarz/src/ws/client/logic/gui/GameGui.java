@@ -1,4 +1,4 @@
-package ws.client.lua.gui;
+package ws.client.logic.gui;
 
 import net.sf.jirr.E_DRIVER_TYPE;
 import net.sf.jirr.IGUIEnvironment;

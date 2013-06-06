@@ -1,4 +1,4 @@
-package ws.client.lua.gui;
+package ws.client.logic.gui;
 
 import java.lang.reflect.Field;
 import java.util.HashSet;

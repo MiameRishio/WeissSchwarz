@@ -1,4 +1,4 @@
-package ws.client.lua.gui;
+package ws.client.logic.gui;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,23 +13,24 @@ import net.sf.jirr.recti;
 /**
  * Team : Eight Dos and Don'ts & Philosophy Discussion Group
  * Author : MiameRishio
- * Creation Time : 7:21:17 PM - Jun 1, 2013
+ * Creation Time : 6:12:22 PM - Jun 1, 2013
  * Description :
  *   
  */
-public class LanMenuState implements IState {
-
-	public LanMenuState(IGUIEnvironment env) {
+public class MainMenuState implements IState {
+	
+	public MainMenuState(IGUIEnvironment env) {
 		this.env = env;
-		buttonMap.put(new Integer(CANCEL), env.addButton(new recti(10, 280, 100, 310), null, CANCEL, "Cancel"));
+		buttonMap.put(new Integer(NET_GAME), env.addButton(new recti(10, 210, 100, 240), null, NET_GAME, "Net Game"));
+		buttonMap.put(new Integer(EDIT_DECK), env.addButton(new recti(10, 250, 100, 270), null, EDIT_DECK, "Edit Deck"));
+		buttonMap.put(new Integer(EXIT_GAME), env.addButton(new recti(10, 280, 100, 310), null, EXIT_GAME, "Exit Game"));
 	}
+	
 	/* (non-Javadoc)
 	 * @see ws.client.lua.gui.GameState#enter()
 	 */
 	@Override
 	public void enter() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/* (non-Javadoc)
@@ -46,9 +47,7 @@ public class LanMenuState implements IState {
 	 */
 	@Override
 	public void leave() {
-		for (Entry<Integer, IGUIButton> entry : buttonMap.entrySet()) {
-			entry.getValue().setVisible(false);
-		}
+		env.clear();
 	}
 
 	/* (non-Javadoc)
@@ -70,10 +69,7 @@ public class LanMenuState implements IState {
 			entry.getValue().setVisible(true);
 		}
 	}
-
-	/* (non-Javadoc)
-	 * @see ws.client.lua.gui.IState#guiEventCallback(net.sf.jirr.SEvent)
-	 */
+	
 	@Override
 	public void guiEventCallback(SEvent event) {
 		int event_id = event.getGUIEventCaller().getID();
@@ -81,21 +77,26 @@ public class LanMenuState implements IState {
 		if (event_type == EGUI_EVENT_TYPE.EGET_BUTTON_CLICKED) {
 			System.out.println("Button Click " + event_id);
 			switch (event_id) {
-			case CANCEL:
+			case NET_GAME:
 			{
-				FiniteStateMachine.popState();
+				FiniteStateMachine.pushState(new LanMenuState(env));
 				break;
 			}
+			case EDIT_DECK:
+			{
+				// TODO
+				break;
+			}
+			case EXIT_GAME:
+				break;
 			}
 		}
 	}
-
 	
-	// Lan Menu		0x2000 ~ 0x2fff
-	public final static int NICK_NAME		= 0x2000;
-	public final static int JOIN_IP			= 0x2001;
-	public final static int JOIN_PORT		= 0x2002;
-	public final static int CANCEL			= 0x2003;
+	// Main Menu	0x1000 ~ 0x1fff
+	public final static int NET_GAME		= 0x1000;
+	public final static int EDIT_DECK		= 0x1001;
+	public final static int EXIT_GAME		= 0x1002;
 	
 	private final IGUIEnvironment env;
 	private Map<Integer, IGUIButton> buttonMap = new HashMap<Integer, IGUIButton>();

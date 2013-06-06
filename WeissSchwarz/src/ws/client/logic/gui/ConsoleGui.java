@@ -1,4 +1,4 @@
-package ws.client.lua.gui;
+package ws.client.logic.gui;
 /**
  * Team : Eight Dos and Don'ts & Philosophy Discussion Group
  * Author : MiameRishio
